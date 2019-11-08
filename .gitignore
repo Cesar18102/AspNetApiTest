@@ -1,2 +1,4 @@
-/TestAspApi/packages
-/TestAspApi/.vs
+/AspNetBlankAppTest/packages
+/AspNetBlankAppTest/.vs
+/AspNetBlankAppTest/AspNetBlankAppTest/bin
+/AspNetBlankAppTest/AspNetBlankAppTest/obj
