@@ -16,16 +16,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/10/2019 00:45:35</publishTime>
+      <publishTime>11/10/2019 00:55:46</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/10/2019 00:45:35</publishTime>
+      <publishTime>11/10/2019 00:55:46</publishTime>
     </File>
     <File Include="bin/AspNetBlankAppTest.dll">
-      <publishTime>11/10/2019 00:45:27</publishTime>
+      <publishTime>11/10/2019 00:55:40</publishTime>
     </File>
     <File Include="bin/AspNetBlankAppTest.pdb">
-      <publishTime>11/10/2019 00:45:27</publishTime>
+      <publishTime>11/10/2019 00:55:40</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>08/15/2019 13:05:20</publishTime>
@@ -232,7 +232,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/11/2019 14:32:49</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/10/2019 00:45:28</publishTime>
+      <publishTime>11/10/2019 00:55:41</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>11/09/2019 03:57:46</publishTime>

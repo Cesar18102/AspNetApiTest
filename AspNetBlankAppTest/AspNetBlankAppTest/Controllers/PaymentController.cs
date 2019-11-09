@@ -40,6 +40,6 @@ namespace AspNetBlankAppTest.Controllers
         public async Task<IEnumerable<PaymentInfo>> GetAll() => await payService.GetAll();
 
         [HttpGet]
-        public async Task<IEnumerable<PaymentInfo>> GetByCreator(int userId) => await payService.Get(userId);
+        public async Task<IEnumerable<PaymentInfo>> GetByCreator(int id) => await payService.Get(id);
     }
 }

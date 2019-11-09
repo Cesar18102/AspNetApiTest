@@ -7,6 +7,7 @@ using Autofac;
 using AspNetBlankAppTest.Models;
 using AspNetBlankAppTest.Service;
 using AspNetBlankAppTest.Repo.Util;
+using AspNetBlankAppTest.Exceptions;
 
 namespace AspNetBlankAppTest.Controllers
 {
@@ -17,9 +18,17 @@ namespace AspNetBlankAppTest.Controllers
         public UserController() : base() { }
 
         [HttpGet]
-        public async Task<IEnumerable<UserInfo>> GetUsers() => await userService.GetUsers();
+        public async Task<IEnumerable<UserInfo>> GetAll() => await userService.GetUsers();
 
         [HttpGet]
-        public async Task<UserInfo> GetUserByLogin(string login) => await userService.GetUserByLogin(login);
+        public async Task<UserInfo> GetByLogin(string login)
+        {
+            UserInfo user = await userService.GetUserByLogin(login);
+
+            if (user == null)
+                throw new NoSuchUserException();
+
+            return user;
+        }
     }
 }
