@@ -1,6 +1,9 @@
-﻿using System;
+﻿using System.Net;
 
 namespace AspNetBlankAppTest.Exceptions
 {
-    public class LogInFailedException : Exception { }
+    public class LogInFailedException : ResponseException
+    {
+        public LogInFailedException() : base("Log in failed", HttpStatusCode.Forbidden) { }
+    }
 }

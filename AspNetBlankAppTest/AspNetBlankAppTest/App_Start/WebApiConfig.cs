@@ -15,7 +15,7 @@ namespace AspNetBlankAppTest
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultPostApi",
+                name: "PublicApi",
                 routeTemplate: "api/{controller}/{action}"
             );
 

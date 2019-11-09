@@ -1,9 +1,9 @@
-﻿using System.Web.Http;
-using System.Data.Common;
+﻿using System.Net;
+using System.Web.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using MySql.Data.MySqlClient;
+using Autofac;
 
 using AspNetBlankAppTest.Dto;
 using AspNetBlankAppTest.Models;
@@ -11,38 +11,47 @@ using AspNetBlankAppTest.Service;
 using AspNetBlankAppTest.Repo.Util;
 using AspNetBlankAppTest.Util.Validation;
 using AspNetBlankAppTest.Util.Encryption;
+using AspNetBlankAppTest.Exceptions;
 
 namespace AspNetBlankAppTest.Controllers
 {
     public class AuthController : ApiController
     {
-        private static readonly IDbCommandFactory commandFactory = new MySqlCommandFactory();
-        private static readonly DbConnection connection = new MySqlConnection("Server=127.0.0.1; Database=test; Uid=root;");
-        private static readonly UserService userService = new UserService(commandFactory, connection);
-
-        private static readonly SignUpFormValidator signUpValidator = new SignUpFormValidator();
-
-        static AuthController() => connection.Open();
+        private static readonly FormValidator<UserSignUpFormDto> signUpValidator = new SignUpFormValidator();
+        private static readonly UserService userService = new UserService(WebApiApplication.DI.Resolve<IRepoFactory>());
 
         public AuthController() : base() { }
 
         [HttpPost]
-        public async Task<UserInfo> SignUp([FromBody]UserSignUpFormDto signUpForm)//check if password encoded, validate
+        public async Task<UserSession> SignUp([FromBody]UserSignUpFormDto signUpForm)
         {
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
             signUpValidator.Validate(signUpForm);
-            return await userService.SignUp(new UserCredintails(signUpForm.login, PasswordEncrypter.Encrypt(signUpForm.password)));
+
+            UserCredintails signUpCredintails = new UserCredintails(signUpForm.login, Encryptor.Encrypt(signUpForm.password));
+            await userService.SignUp(signUpCredintails);
+
+            UserCredintails logInCredintails = new UserCredintails(signUpCredintails.login, Encryptor.Encrypt(signUpCredintails.passwordEncoded));
+            UserSession session = await userService.LogIn(logInCredintails);
+
+            WebApiApplication.DI.Resolve<SessionTable>().LogIn(session);
+            return session;
         }
 
         [HttpPost]
-        public async Task<UserInfo> LogIn([FromBody]UserLogInFormDto logInForm) // change exceptions
+        public async Task<UserSession> LogIn([FromBody]UserLogInFormDto logInForm)
         {
-            return await userService.LogIn(logInForm);
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            UserSession session =  await userService.LogIn(logInForm);
+            WebApiApplication.DI.Resolve<SessionTable>().LogIn(session);
+
+            return session;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<UserInfo>> GetUsers() => await userService.GetUsers();
-
-        [HttpGet]
-        public async Task<UserInfo> GetUserByLogin(string login) => await userService.GetUserByLogin(login);
+        //public IEnumerable<UserSession> GetSessions() => WebApiApplication.DI.Resolve<SessionTable>().GetSessions();//remove
     }
 }

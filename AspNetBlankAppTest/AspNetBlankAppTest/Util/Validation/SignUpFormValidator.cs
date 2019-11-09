@@ -4,14 +4,14 @@ using AspNetBlankAppTest.Util.Validation.Patterns;
 
 namespace AspNetBlankAppTest.Util.Validation
 {
-    public class SignUpFormValidator
+    public class SignUpFormValidator : FormValidator<UserSignUpFormDto>
     {
-        public void Validate(UserSignUpFormDto signUpForm)
+        protected override void ValidateForm(UserSignUpFormDto form)
         {
-            if (!UserPatterns.PASSWORD_PATTERN.IsMatch(signUpForm.password))
+            if (!UserPatterns.PASSWORD_PATTERN.IsMatch(form.password))
                 throw new InvalidPasswordException();
 
-            if (!UserPatterns.LOGIN_PATTERN.IsMatch(signUpForm.login))
+            if (!UserPatterns.LOGIN_PATTERN.IsMatch(form.login))
                 throw new InvalidLoginException();
         }
     }

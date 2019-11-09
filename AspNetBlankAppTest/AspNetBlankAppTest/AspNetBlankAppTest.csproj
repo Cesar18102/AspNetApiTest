@@ -139,6 +139,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -146,28 +148,41 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dto\IForm.cs" />
+    <Compile Include="Dto\PaymentFormDto.cs" />
     <Compile Include="Dto\UserLogInFormDto.cs" />
     <Compile Include="Dto\UserSignUpFormDto.cs" />
     <Compile Include="Exceptions\InvalidLoginException.cs" />
+    <Compile Include="Exceptions\InvalidDataException.cs" />
     <Compile Include="Exceptions\InvalidPasswordException.cs" />
     <Compile Include="Exceptions\LogInFailedException.cs" />
+    <Compile Include="Exceptions\NotAutorizedException.cs" />
+    <Compile Include="Exceptions\ResponseException.cs" />
     <Compile Include="Exceptions\UserConflictException.cs" />
     <Compile Include="Exceptions\NoSuchUserException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionTable.cs" />
     <Compile Include="Models\UserCredintails.cs" />
     <Compile Include="Models\PaymentInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\UserSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\Decl\IPayRepo.cs" />
+    <Compile Include="Repo\Impl\PayRepo.cs" />
+    <Compile Include="Repo\Impl\Repo.cs" />
+    <Compile Include="Repo\Util\IRepoFactory.cs" />
     <Compile Include="Repo\Decl\IUserRepo.cs" />
-    <Compile Include="Repo\Util\IDbCommandFactory.cs" />
-    <Compile Include="Repo\Util\MySqlCommandFactory.cs" />
+    <Compile Include="Repo\Util\MySqlRepoFactory.cs" />
     <Compile Include="Repo\Impl\UserRepo.cs" />
+    <Compile Include="Service\PayService.cs" />
     <Compile Include="Service\UserService.cs" />
-    <Compile Include="Util\Encryption\PasswordEncrypter.cs" />
-    <Compile Include="Util\Validation\LogInFormValidator.cs" />
+    <Compile Include="Util\Encryption\Encryptor.cs" />
+    <Compile Include="Util\Validation\FormValidator.cs" />
+    <Compile Include="Util\Validation\Patterns\PayPatterns.cs" />
     <Compile Include="Util\Validation\Patterns\UserPatterns.cs" />
+    <Compile Include="Util\Validation\PayFormValidator.cs" />
     <Compile Include="Util\Validation\SignUpFormValidator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Exceptions\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

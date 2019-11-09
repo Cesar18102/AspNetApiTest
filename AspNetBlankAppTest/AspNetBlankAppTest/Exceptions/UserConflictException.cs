@@ -1,6 +1,9 @@
-﻿using System;
+﻿using System.Net;
 
 namespace AspNetBlankAppTest.Exceptions
 {
-    public class UserConflictException : Exception { }
+    public class UserConflictException : ResponseException
+    { 
+        public UserConflictException() : base("User already exists", HttpStatusCode.Conflict) { }
+    }
 }

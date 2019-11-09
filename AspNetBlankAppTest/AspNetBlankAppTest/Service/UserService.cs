@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
@@ -17,23 +17,21 @@ namespace AspNetBlankAppTest.Service
         private static readonly Regex DUPLICATE_LOGIN_EXCEPTION = new Regex("^Duplicate entry '\\w+' for key 'login'$");
 
         private UserRepo UserRepo { get; set; }
-        public UserService(IDbCommandFactory commandFactory, IDbConnection connection) => UserRepo = new UserRepo(commandFactory, connection);
+        public UserService(IRepoFactory repoFactory) => UserRepo = new UserRepo(repoFactory);
 
-        public async Task<UserInfo> SignUp(UserCredintails creds)
+        public async Task SignUp(UserCredintails creds)
         {
             try { await UserRepo.Add(creds); }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
                 if (DUPLICATE_LOGIN_EXCEPTION.IsMatch(ex.Message))
                     throw new UserConflictException();
             }
-
-            return await UserRepo.FindByLogin(creds.Login);
         }
 
-        public async Task<UserInfo> LogIn(UserCredintails creds)
+        public async Task<UserSession> LogIn(UserCredintails creds)
         {
-            UserInfo user = await UserRepo.LogIn(creds);
+            UserSession user = await UserRepo.LogIn(creds);
 
             if (user == null)
                 throw new LogInFailedException();

@@ -1,25 +1,38 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using Newtonsoft.Json;
 
-using AspNetBlankAppTest.Dto;
+using AspNetBlankAppTest.Models;
 
-namespace AspNetBlankAppTest.Models
+namespace AspNetBlankAppTest.Dto
 {
     [JsonObject]
-    public class PaymentInfo
+    public class PaymentFormDto : IForm
     {
-        public int user_id { get; private set; }
+        [Required]
+        public UserSession session { get; private set; }
+
+        [Required]
         public string firstName { get; private set; }
+
+        [Required]
         public string lastName { get; private set; }
+
         public string patronymic { get; private set; }
+
+        [Required]
         public double amount { get; private set; }
+
+        [Required]
         public DateTime payDate { get; private set; }
+
+        [Required]
         public bool payed { get; private set; }
 
-        public PaymentInfo(int user_id, string firstName, string lastName, string patronymic, double amount, DateTime payDate, bool payed)
+        public PaymentFormDto(UserSession session, string firstName, string lastName, string patronymic, double amount, DateTime payDate, bool payed)
         {
-            this.user_id = user_id;
+            this.session = session;
             this.firstName = firstName;
             this.lastName = lastName;
             this.patronymic = patronymic;
@@ -27,8 +40,5 @@ namespace AspNetBlankAppTest.Models
             this.payDate = payDate;
             this.payed = payed;
         }
-
-        public static implicit operator PaymentInfo(PaymentFormDto payForm) => 
-            new PaymentInfo(payForm.session.id, payForm.firstName, payForm.lastName, payForm.patronymic, payForm.amount, payForm.payDate, payForm.payed);
     }
 }
