@@ -1,23 +1,20 @@
-﻿using System.Runtime.Serialization;
-
-using Newtonsoft.Json;
+﻿using AspNetBlankAppTest.Dto;
 
 namespace AspNetBlankAppTest.Models
 {
-    [JsonObject]
     public class UserCredintails
     {
-        [JsonRequired]
-        public string login { get; private set; }
+        public string Login { get; private set; }
+        public string PasswordEncoded { get; private set; }
+        public string Seed { get; private set; }
 
-        [JsonIgnore]
-        [JsonRequired]
-        public string passwordEncoded { get; private set; }
-
-        public UserCredintails(string login, string pwdEncoded)
+        public UserCredintails(string login, string pwdEncoded, string seed = "")
         {
-            this.login = login;
-            this.passwordEncoded = pwdEncoded;
+            Login = login;
+            PasswordEncoded = pwdEncoded;
+            Seed = seed;
         }
+
+        public static implicit operator UserCredintails(UserLogInFormDto logInForm) => new UserCredintails(logInForm.login, logInForm.passwordEncoded, logInForm.seed);
     }
 }
