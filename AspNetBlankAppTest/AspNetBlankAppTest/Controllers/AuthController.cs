@@ -26,7 +26,7 @@ namespace AspNetBlankAppTest.Controllers
         public async Task<UserSession> SignUp([FromBody]UserSignUpFormDto signUpForm)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new InvalidDataException();
 
             signUpValidator.Validate(signUpForm);
 
@@ -44,14 +44,12 @@ namespace AspNetBlankAppTest.Controllers
         public async Task<UserSession> LogIn([FromBody]UserLogInFormDto logInForm)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new InvalidDataException();
 
             UserSession session =  await userService.LogIn(logInForm);
             WebApiApplication.DI.Resolve<SessionTable>().LogIn(session);
 
             return session;
         }
-
-        //public IEnumerable<UserSession> GetSessions() => WebApiApplication.DI.Resolve<SessionTable>().GetSessions();//remove
     }
 }

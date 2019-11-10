@@ -25,7 +25,7 @@ namespace AspNetBlankAppTest.Controllers
         public async Task Add([FromBody]PaymentFormDto payForm)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new InvalidDataException();
 
             if (!WebApiApplication.DI.Resolve<SessionTable>().IsActive(payForm.session))
                 throw new NotAutorizedException();
