@@ -22,7 +22,7 @@ namespace AspNetBlankAppTest.Controllers
         public PaymentController() : base() { }
 
         [HttpPost]
-        public async Task Add([FromBody]PaymentFormDto payForm)
+        public async Task<PaymentInfo> Add([FromBody]PaymentFormDto payForm)
         {
             if (!ModelState.IsValid)
                 throw new InvalidDataException();
@@ -32,8 +32,7 @@ namespace AspNetBlankAppTest.Controllers
 
             payFormValidator.Validate(payForm);
             await payService.Pay(payForm);
-
-            throw new HttpResponseException(HttpStatusCode.OK);
+            return payForm;
         }
 
         [HttpGet]

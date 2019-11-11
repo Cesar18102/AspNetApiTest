@@ -94,5 +94,20 @@ namespace AspNetBlankAppTest.Repo.Impl
                 return (await GetRecords<UserInfo>(cmd, (USER_ID_TYPE, USER_ID_TABLE_HEAD), (USER_LOGIN_TYPE, USER_LOGIN_TABLE_HEAD))).FirstOrDefault();
             }
         }
+
+        public async Task<UserInfo> FindById(int id)
+        {
+            using (DbConnection connection = RepoFactory.GetConnection())
+            {
+                DbCommand cmd = RepoFactory.CreateCommand($"SELECT {USER_ID_TABLE_HEAD}, {USER_LOGIN_TABLE_HEAD} " +
+                                                          $"FROM {USER_TABLE_NAME} " +
+                                                          $"WHERE {USER_ID_TABLE_HEAD} = @{USER_ID_TABLE_HEAD};", connection);
+
+                cmd.Parameters.Add(RepoFactory.CreateParameter("@" + USER_ID_TABLE_HEAD, id));
+
+                await connection.OpenAsync();
+                return (await GetRecords<UserInfo>(cmd, (USER_ID_TYPE, USER_ID_TABLE_HEAD), (USER_LOGIN_TYPE, USER_LOGIN_TABLE_HEAD))).FirstOrDefault();
+            }
+        }
     }
 }

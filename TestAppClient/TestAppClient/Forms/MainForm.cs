@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 
 using Autofac;
 
@@ -24,7 +24,7 @@ namespace TestAppClient.Forms
                 UseWaitCursor = true;
 
                 SignUpForm signUpForm = new SignUpForm(LoginInput.Text, PasswordInput.Text);
-                Program.DI.Resolve<Session>().Update(await Program.DI.Resolve<SignUpController>().SignUp(signUpForm));
+                Program.DI.Resolve<Session>().Update(await Program.DI.Resolve<AuthController>().SignUp(signUpForm));
 
                 UseWaitCursor = false;
                 MessageBox.Show("Registration successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -45,7 +45,7 @@ namespace TestAppClient.Forms
                 UseWaitCursor = true;
 
                 LogInForm logInForm = new LogInForm(LoginInput.Text, PasswordInput.Text);
-                Program.DI.Resolve<Session>().Update(await Program.DI.Resolve<LogInController>().LogIn(logInForm));
+                Program.DI.Resolve<Session>().Update(await Program.DI.Resolve<AuthController>().LogIn(logInForm));
 
                 UseWaitCursor = false;
                 EnterSystem();

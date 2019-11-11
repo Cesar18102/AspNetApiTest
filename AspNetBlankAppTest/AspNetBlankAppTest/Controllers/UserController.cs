@@ -30,5 +30,16 @@ namespace AspNetBlankAppTest.Controllers
 
             return user;
         }
+
+        [HttpGet]
+        public async Task<UserInfo> GetById(int id)
+        {
+            UserInfo user = await userService.GetUserById(id);
+
+            if (user == null)
+                throw new NoSuchUserException();
+
+            return user;
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace AspNetBlankAppTest.Service
         }
 
         public async Task<IEnumerable<UserInfo>> GetUsers() => await UserRepo.GetAll();
+        public async Task<UserInfo> GetUserById(int id) => await UserRepo.FindById(id);
         public async Task<UserInfo> GetUserByLogin(string login) => await UserRepo.FindByLogin(login);
     }
 }

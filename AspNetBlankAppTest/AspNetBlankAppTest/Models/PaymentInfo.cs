@@ -9,7 +9,7 @@ namespace AspNetBlankAppTest.Models
     [JsonObject]
     public class PaymentInfo
     {
-        public int user_id { get; private set; }
+        public UserInfo creator { get; private set; }
         public string firstName { get; private set; }
         public string lastName { get; private set; }
         public string patronymic { get; private set; }
@@ -17,9 +17,9 @@ namespace AspNetBlankAppTest.Models
         public DateTime payDate { get; private set; }
         public bool payed { get; private set; }
 
-        public PaymentInfo(int user_id, string firstName, string lastName, string patronymic, double amount, DateTime payDate, bool payed)
+        public PaymentInfo(int user_id, string login, string firstName, string lastName, string patronymic, double amount, DateTime payDate, bool payed)
         {
-            this.user_id = user_id;
+            this.creator = new UserInfo(user_id, login);
             this.firstName = firstName;
             this.lastName = lastName;
             this.patronymic = patronymic;
@@ -29,6 +29,9 @@ namespace AspNetBlankAppTest.Models
         }
 
         public static implicit operator PaymentInfo(PaymentFormDto payForm) => 
-            new PaymentInfo(payForm.session.id, payForm.firstName, payForm.lastName, payForm.patronymic, payForm.amount, payForm.payDate, payForm.payed);
+            new PaymentInfo(payForm.session.id, payForm.session.login, 
+                            payForm.firstName, payForm.lastName, payForm.patronymic, 
+                            payForm.amount, payForm.payDate, payForm.payed
+            );
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace TestAppClient.Model
+﻿using Newtonsoft.Json;
+
+namespace TestAppClient.Model
 {
-    public class SignUpForm : ModelElement
+    [JsonObject]
+    public class SignUpForm
     {
         public string login { get; private set; }
         public string password { get; private set; }

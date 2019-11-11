@@ -26,16 +26,19 @@ namespace TestAppClient
             builder.RegisterType<ServerCommunicator>().SingleInstance().As<IServerCommunicator>();
             builder.RegisterType<JsonResponseParser>().SingleInstance().As<IResponseParser>();
 
-            builder.RegisterType<SignUpController>().SingleInstance().AsSelf();
+            builder.RegisterType<AuthController>().SingleInstance().AsSelf();
             builder.RegisterType<SignUpQueryFactory>().SingleInstance().AsSelf();
-
-            builder.RegisterType<LogInController>().SingleInstance().AsSelf();
             builder.RegisterType<LogInQueryFactory>().SingleInstance().AsSelf();
 
             builder.RegisterType<PaymentController>().SingleInstance().AsSelf();
             builder.RegisterType<GetAllPaymentsQueryFactory>().SingleInstance().AsSelf();
             builder.RegisterType<GetPaymentsByCreatorQueryFactory>().SingleInstance().AsSelf();
             builder.RegisterType<AddPaymentQueryFactory>().SingleInstance().AsSelf();
+
+            builder.RegisterType<UserController>().SingleInstance().AsSelf();
+            builder.RegisterType<GetAllUsersQueryFactory>().SingleInstance().AsSelf();
+            builder.RegisterType<GetUserByIdQueryFactory>().SingleInstance().AsSelf();
+            builder.RegisterType<GetUserByLoginQueryFactory>().SingleInstance().AsSelf();
 
             DI = builder.Build();
         }

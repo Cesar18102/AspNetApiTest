@@ -73,6 +73,9 @@ namespace TestAppClient.CustomControls
         {
             base.OnPaint(pevent);
 
+            if (CornerRadius == 0)
+                return;
+
             for (int i = 0; i < pathes.Length; i++)
                 pevent.Graphics.FillPath(new SolidBrush(CornerBackColor), pathes[i]);
 

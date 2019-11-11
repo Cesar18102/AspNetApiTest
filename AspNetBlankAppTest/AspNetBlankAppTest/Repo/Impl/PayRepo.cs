@@ -12,6 +12,10 @@ namespace AspNetBlankAppTest.Repo.Impl
     public class PayRepo : Repo, IPayRepo
     {
         private const string PAY_TABLE_NAME = "pay";
+        private const string USERS_TABLE_NAME = "users";
+
+        private const string USER_ID_ORIGIN_TABLE_HEAD = "id";
+        private const string USER_LOGIN_ORIGIN_TABLE_HEAD = "login";
 
         private const string USER_ID_TABLE_HEAD = "user_id";
         private const string FIRST_NAME_TABLE_HEAD = "firstName";
@@ -22,6 +26,7 @@ namespace AspNetBlankAppTest.Repo.Impl
         private const string PAYED_TABLE_HEAD = "payed";
 
         private static readonly Type USER_ID_TYPE = typeof(int);
+        private static readonly Type USER_LOGIN_TYPE = typeof(string);
         private static readonly Type FIRST_NAME_TYPE = typeof(string);
         private static readonly Type LAST_NAME_TYPE = typeof(string);
         private static readonly Type PATRONYMIC_TYPE = typeof(string);
@@ -40,7 +45,7 @@ namespace AspNetBlankAppTest.Repo.Impl
                                                           $"VALUES(0, @{USER_ID_TABLE_HEAD}, @{FIRST_NAME_TABLE_HEAD}, @{LAST_NAME_TABLE_HEAD}, " +
                                                           $"@{PATRONYMIC_TABLE_HEAD}, @{AMOUNT_TABLE_HEAD}, @{PAY_DATE_TABLE_HEAD}, @{PAYED_TABLE_HEAD})", connection);
 
-                cmd.Parameters.Add(RepoFactory.CreateParameter("@" + USER_ID_TABLE_HEAD, paymentInfo.user_id));
+                cmd.Parameters.Add(RepoFactory.CreateParameter("@" + USER_ID_TABLE_HEAD, paymentInfo.creator.id));
                 cmd.Parameters.Add(RepoFactory.CreateParameter("@" + FIRST_NAME_TABLE_HEAD, paymentInfo.firstName));
                 cmd.Parameters.Add(RepoFactory.CreateParameter("@" + LAST_NAME_TABLE_HEAD, paymentInfo.lastName));
                 cmd.Parameters.Add(RepoFactory.CreateParameter("@" + PATRONYMIC_TABLE_HEAD, paymentInfo.patronymic));
@@ -57,10 +62,14 @@ namespace AspNetBlankAppTest.Repo.Impl
         {
             using(DbConnection connection = RepoFactory.GetConnection())
             {
-                DbCommand cmd = RepoFactory.CreateCommand($"SELECT * FROM {PAY_TABLE_NAME}" + (id == -1 ? "" : $" WHERE {USER_ID_TABLE_HEAD} = {id}"), connection);
+                DbCommand cmd = RepoFactory.CreateCommand($"SELECT U.{USER_ID_ORIGIN_TABLE_HEAD}, U.{USER_LOGIN_ORIGIN_TABLE_HEAD}, P.* " +
+                                                          $"FROM {PAY_TABLE_NAME} P JOIN {USERS_TABLE_NAME} U " +
+                                                          $"ON P.{USER_ID_TABLE_HEAD} = U.{USER_ID_ORIGIN_TABLE_HEAD}" + 
+                                                          (id == -1 ? "" : $" WHERE {USER_ID_TABLE_HEAD} = {id}"), connection);
 
                 await connection.OpenAsync();
-                return await GetRecords<PaymentInfo>(cmd, (USER_ID_TYPE, USER_ID_TABLE_HEAD),
+                return await GetRecords<PaymentInfo>(cmd, (USER_ID_TYPE, USER_ID_ORIGIN_TABLE_HEAD),
+                                                          (USER_LOGIN_TYPE, USER_LOGIN_ORIGIN_TABLE_HEAD),
                                                           (FIRST_NAME_TYPE, FIRST_NAME_TABLE_HEAD),
                                                           (LAST_NAME_TYPE, LAST_NAME_TABLE_HEAD),
                                                           (PATRONYMIC_TYPE, PATRONYMIC_TABLE_HEAD),

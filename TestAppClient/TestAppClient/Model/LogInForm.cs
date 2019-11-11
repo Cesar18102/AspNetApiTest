@@ -7,7 +7,7 @@ using TestAppClient.Util.Encryption;
 namespace TestAppClient.Model
 {
     [JsonObject]
-    public class LogInForm : ModelElement
+    public class LogInForm
     {
         private static readonly Random R = new Random();
 

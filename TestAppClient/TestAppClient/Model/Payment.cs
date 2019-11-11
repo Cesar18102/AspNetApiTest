@@ -8,7 +8,7 @@ namespace TestAppClient.Model
     public class Payment : ModelElement
     {
         [JsonRequired]
-        public int user_id { get; private set; }
+        public UserInfo creator { get; private set; }
 
         [JsonRequired]
         public string firstName { get; private set; }
@@ -29,5 +29,16 @@ namespace TestAppClient.Model
         public bool payed { get; private set; }
 
         public Payment() { }
+
+        public Payment(string firstName, string lastName, string patronymic,
+                       double amount, DateTime payDate, bool payed)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.patronymic = patronymic;
+            this.amount = amount;
+            this.payDate = payDate;
+            this.payed = payed;
+        }
     }
 }

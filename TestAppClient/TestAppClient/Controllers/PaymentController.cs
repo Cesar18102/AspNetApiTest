@@ -19,14 +19,18 @@ namespace TestAppClient.Controllers
             return Program.DI.Resolve<IResponseParser>().ParseCollection<Payment>(response);
         }
 
-        //public async Task<IEnumerable<Payment>> GetByCreator(int id)
-        //{
+        public async Task<IEnumerable<Payment>> GetByCreator(int id)
+        {
+            IQuery getPaymentsByCreatorQuery = Program.DI.Resolve<GetPaymentsByCreatorQueryFactory>().GetByCreator(id);
+            IServerResponse response = await Program.DI.Resolve<IServerCommunicator>().SendQuery(getPaymentsByCreatorQuery);
+            return Program.DI.Resolve<IResponseParser>().ParseCollection<Payment>(response);
+        }
 
-        //}
-
-        //public async Task<IEnumerable<Payment>> Add(Session session, Payment payment)
-        //{
-
-        //}
+        public async Task<Payment> Add(AddPaymentForm addPaymentForm)
+        {
+            IQuery addPaymentQuery = Program.DI.Resolve<AddPaymentQueryFactory>().Add(addPaymentForm);
+            IServerResponse response = await Program.DI.Resolve<IServerCommunicator>().SendQuery(addPaymentQuery);
+            return Program.DI.Resolve<IResponseParser>().Parse<Payment>(response);
+        }
     }
 }
