@@ -8,7 +8,7 @@ namespace AspNetBlankAppTest.Repo.Util
 {
     public class MySqlRepoFactory : IRepoFactory
     {
-        private const string CONNECTION_STRING = "Server=127.0.0.1; Database=test; Uid=root;";
+        private const string CONNECTION_STRING = "Server=109.86.209.135; Database=test; Uid=back; Pwd=lolkekoleg";
 
         public DbConnection GetConnection() => new MySqlConnection(CONNECTION_STRING);
 

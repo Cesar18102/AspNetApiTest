@@ -15,9 +15,7 @@ namespace AspNetBlankAppTest.Repo.Impl
     {
         private const string USER_TABLE_NAME = "users";
 
-        //private const string LOGIN_PARAM_NAME = "@login";
         private const string SEED_PARAM_NAME = "@seed";
-        //private const string PWD_PARAM_NAME = "@pwd";
 
         private const string USER_ID_TABLE_HEAD = "id";
         private const string USER_LOGIN_TABLE_HEAD = "login";
@@ -26,7 +24,6 @@ namespace AspNetBlankAppTest.Repo.Impl
 
         private static readonly Type USER_ID_TYPE = typeof(int);
         private static readonly Type USER_LOGIN_TYPE = typeof(string);
-        //private static readonly Type USER_PWD_TYPE = typeof(string);
         private static readonly Type USER_HASH_TYPE = typeof(string);
 
         private IRepoFactory RepoFactory { get; set; }

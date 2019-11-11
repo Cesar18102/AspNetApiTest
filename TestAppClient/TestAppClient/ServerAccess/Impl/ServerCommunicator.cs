@@ -13,7 +13,7 @@ namespace TestAppClient.ServerAccess.Impl
 {
     public class ServerCommunicator : IServerCommunicator
     {
-        public const string SERVER_URL = "http://localhost/api";
+        public const string SERVER_URL = "https://cesar18102asp.somee.com/api";
 
         public const string APP_JSON = "application/json";
         public const string APP_URLENCODED = "application/x-www-form-urlencoded";

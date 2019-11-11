@@ -45,9 +45,13 @@ namespace TestAppClient.Forms
 
         private async Task LoadPayments()
         {
+            UseWaitCursor = true;
+
             PaymentController paymentController = Program.DI.Resolve<PaymentController>();
             Payments = await (MyPaymentsOnlyFilter.Checked ? paymentController.GetByCreator(session.id) : 
                                                              paymentController.GetAll());
+
+            UseWaitCursor = false;
         }
 
         private void FillTable() =>

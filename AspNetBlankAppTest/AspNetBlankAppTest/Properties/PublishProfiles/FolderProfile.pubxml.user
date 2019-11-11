@@ -6,7 +6,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\AspServer\apitest.com</_PublishTargetUrl>
+    <_PublishTargetUrl>ftp://cesar18102asp.somee.com/www.cesar18102asp.somee.com/</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGAScpHhtakCv8BjOibzkvQAAAAACAAAAAAAQZgAAAAEAACAAAABLjmljdozNPGxFsOJJ7RukVZQYlAToOk2Ln9fcJSvICwAAAAAOgAAAAAIAACAAAACdgsZWt/cVQk2MCGl2ra8txOSDGTmt4HtgmIpNgwsgfSAAAABSFhMbjI0qcPwTRAGH3ZdIk1BmSh+S8TdfERisD7CZT0AAAABG2N5/zJaRudoC7O2hF9JCqV/VUxT3GLIDO6bwLV8xKE6ugfP+YQibXQRxdnK2oI0E9h+imvTaFw8DgknZsY+5</EncryptedPassword>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -16,16 +17,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/11/2019 02:11:25</publishTime>
+      <publishTime>11/11/2019 17:33:36</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/11/2019 02:11:25</publishTime>
+      <publishTime>11/11/2019 17:33:36</publishTime>
     </File>
     <File Include="bin/AspNetBlankAppTest.dll">
-      <publishTime>11/11/2019 02:11:20</publishTime>
+      <publishTime>11/11/2019 20:10:46</publishTime>
     </File>
     <File Include="bin/AspNetBlankAppTest.pdb">
-      <publishTime>11/11/2019 02:11:20</publishTime>
+      <publishTime>11/11/2019 20:10:46</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>08/15/2019 13:05:20</publishTime>
@@ -229,13 +230,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2019 23:57:41</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>07/11/2019 14:32:49</publishTime>
+      <publishTime>11/07/2019 14:32:49</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/11/2019 02:11:20</publishTime>
+      <publishTime>11/11/2019 17:33:31</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/09/2019 03:57:46</publishTime>
+      <publishTime>11/11/2019 18:32:56</publishTime>
     </File>
   </ItemGroup>
 </Project>
