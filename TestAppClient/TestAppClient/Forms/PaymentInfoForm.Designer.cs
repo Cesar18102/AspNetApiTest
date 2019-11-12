@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentInfoForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Menu = new System.Windows.Forms.ToolStrip();
+            this.SessionActions = new System.Windows.Forms.ToolStripDropDownButton();
+            this.LogOutButton = new System.Windows.Forms.ToolStripMenuItem();
             this.PaymentActions = new System.Windows.Forms.ToolStripDropDownButton();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExportAction = new System.Windows.Forms.ToolStripDropDownButton();
@@ -44,8 +46,6 @@
             this.Unpayed = new System.Windows.Forms.RadioButton();
             this.Payed = new System.Windows.Forms.RadioButton();
             this.MyPaymentsOnlyFilter = new System.Windows.Forms.CheckBox();
-            this.SessionActions = new System.Windows.Forms.ToolStripDropDownButton();
-            this.LogOutButton = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PaymentsDataGridView)).BeginInit();
             this.PaymentFiltersPanel.SuspendLayout();
@@ -65,6 +65,24 @@
             this.Menu.TabIndex = 0;
             this.Menu.Text = "toolStrip1";
             // 
+            // SessionActions
+            // 
+            this.SessionActions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SessionActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LogOutButton});
+            this.SessionActions.Image = ((System.Drawing.Image)(resources.GetObject("SessionActions.Image")));
+            this.SessionActions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SessionActions.Name = "SessionActions";
+            this.SessionActions.Size = new System.Drawing.Size(72, 24);
+            this.SessionActions.Text = "Session";
+            // 
+            // LogOutButton
+            // 
+            this.LogOutButton.Name = "LogOutButton";
+            this.LogOutButton.Size = new System.Drawing.Size(145, 26);
+            this.LogOutButton.Text = "Log Out";
+            this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
+            // 
             // PaymentActions
             // 
             this.PaymentActions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -79,7 +97,7 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
@@ -109,13 +127,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PaymentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.PaymentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.PaymentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.PaymentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PaymentsDataGridView.Location = new System.Drawing.Point(0, 27);
             this.PaymentsDataGridView.Name = "PaymentsDataGridView";
@@ -140,6 +158,8 @@
             // 
             // PayerSearchInput
             // 
+            this.PayerSearchInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PayerSearchInput.Location = new System.Drawing.Point(180, 4);
             this.PayerSearchInput.Name = "PayerSearchInput";
             this.PayerSearchInput.Size = new System.Drawing.Size(366, 34);
@@ -218,24 +238,6 @@
             this.MyPaymentsOnlyFilter.Text = "Только мои оплаты";
             this.MyPaymentsOnlyFilter.UseVisualStyleBackColor = true;
             this.MyPaymentsOnlyFilter.CheckedChanged += new System.EventHandler(this.MyPaymentsOnlyFilter_CheckedChanged);
-            // 
-            // SessionActions
-            // 
-            this.SessionActions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.SessionActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LogOutButton});
-            this.SessionActions.Image = ((System.Drawing.Image)(resources.GetObject("SessionActions.Image")));
-            this.SessionActions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SessionActions.Name = "SessionActions";
-            this.SessionActions.Size = new System.Drawing.Size(72, 24);
-            this.SessionActions.Text = "Session";
-            // 
-            // LogOutButton
-            // 
-            this.LogOutButton.Name = "LogOutButton";
-            this.LogOutButton.Size = new System.Drawing.Size(224, 26);
-            this.LogOutButton.Text = "Log Out";
-            this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
             // 
             // PaymentInfoForm
             // 

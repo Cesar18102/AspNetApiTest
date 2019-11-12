@@ -15,7 +15,7 @@ namespace TestAppClient.Util.Validation.Templates
                 new FieldValidationHandler<T>(input => PaymentFormPatterns.LAST_NAME_PATTERN.IsMatch(lastNameInput.Text), OnInvalid, OnValid);
 
             FieldValidationHandler<T> patronymicValidation =
-                new FieldValidationHandler<T>(input => patronymicInput.Text == null || 
+                new FieldValidationHandler<T>(input => patronymicInput.Text == string.Empty || 
                                                        PaymentFormPatterns.PATRONYMIC_PATTERN.IsMatch(patronymicInput.Text), OnInvalid, OnValid);
 
             Add(firstNameValidation, firstNameInput, OnChangedEventValidationBind);

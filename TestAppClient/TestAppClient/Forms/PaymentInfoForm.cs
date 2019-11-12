@@ -66,12 +66,12 @@ namespace TestAppClient.Forms
             if (!PayedAndUnpayed.Checked)
                 Filters.Add(P => P.payed == Payed.Checked);
 
-            Filters.Add(P => $"{P.firstName} {P.lastName} {P.patronymic}".Contains(PayerSearchInput.Text) ||
-                             $"{P.firstName} {P.patronymic} {P.lastName}".Contains(PayerSearchInput.Text) ||
-                             $"{P.lastName} {P.firstName} {P.patronymic}".Contains(PayerSearchInput.Text) ||
-                             $"{P.lastName} {P.patronymic} {P.firstName}".Contains(PayerSearchInput.Text) ||
-                             $"{P.patronymic} {P.firstName} {P.lastName}".Contains(PayerSearchInput.Text) ||
-                             $"{P.patronymic} {P.lastName} {P.firstName}".Contains(PayerSearchInput.Text));
+            Filters.Add(P => $"{P.firstName} {P.lastName} {P.patronymic}".ToLower().Contains(PayerSearchInput.Text.ToLower()) ||
+                             $"{P.firstName} {P.patronymic} {P.lastName}".ToLower().Contains(PayerSearchInput.Text.ToLower()) ||
+                             $"{P.lastName} {P.firstName} {P.patronymic}".ToLower().Contains(PayerSearchInput.Text.ToLower()) ||
+                             $"{P.lastName} {P.patronymic} {P.firstName}".ToLower().Contains(PayerSearchInput.Text.ToLower()) ||
+                             $"{P.patronymic} {P.firstName} {P.lastName}".ToLower().Contains(PayerSearchInput.Text.ToLower()) ||
+                             $"{P.patronymic} {P.lastName} {P.firstName}".ToLower().Contains(PayerSearchInput.Text.ToLower()));
 
         }
 
