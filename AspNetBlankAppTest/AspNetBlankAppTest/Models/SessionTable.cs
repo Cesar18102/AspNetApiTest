@@ -12,14 +12,15 @@ namespace AspNetBlankAppTest.Models
             Sessions.Add(session);
         }
 
-        public void LogOut(UserSession session)
+        public bool LogOut(UserSession session)
         {
-            if (IsActive(session))
-                Sessions.RemoveAll(S => S.id == session.id);
+            if (!IsActive(session))
+                return false;
+
+            Sessions.RemoveAll(S => S.id == session.id);
+            return true;
         }
 
         public bool IsActive(UserSession session) => Sessions.Exists(S => S.id == session.id && S.hash == session.hash);
-
-        public List<UserSession> GetSessions() => Sessions;//remove
     }
 }

@@ -24,5 +24,11 @@ namespace TestAppClient.Controllers
             IServerResponse response = await Program.DI.Resolve<IServerCommunicator>().SendQuery(logInQuery);
             return Program.DI.Resolve<IResponseParser>().Parse<Session>(response);
         }
+
+        public async Task LogOut(Session session)
+        {
+            IQuery logOutQuery = Program.DI.Resolve<LogOutQueryFactory>().LogOut(session);
+            IServerResponse response = await Program.DI.Resolve<IServerCommunicator>().SendQuery(logOutQuery);
+        }
     }
 }

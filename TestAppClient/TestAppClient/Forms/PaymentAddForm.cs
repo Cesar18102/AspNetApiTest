@@ -6,19 +6,28 @@ using Autofac;
 using TestAppClient.Model;
 using TestAppClient.Controllers;
 using TestAppClient.ServerAccess.Impl;
-using Newtonsoft.Json;
+using TestAppClient.Util.Validation.Templates;
 
 namespace TestAppClient.Forms
 {
     public partial class PaymentAddForm : Form
     {
+        private static PaymentFormValidator<Control> FormValidator { get; set; }
+
         public PaymentAddForm()
         {
             InitializeComponent();
+            FormValidator = new PaymentFormValidator<Control>(FirstNameInput, LastNameInput, PatronymicInput);
         }
 
         private async void ConfirmPaymentButton_Click(object sender, EventArgs e)
         {
+            if(!FormValidator.ValidateAll())
+            {
+                MessageBox.Show("Invalid data", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 UseWaitCursor = true;

@@ -51,5 +51,16 @@ namespace AspNetBlankAppTest.Controllers
 
             return session;
         }
+
+        public UserInfo LogOut([FromBody]UserSession session)
+        {
+            if (!ModelState.IsValid)
+                throw new InvalidDataException();
+
+            if (!WebApiApplication.DI.Resolve<SessionTable>().LogOut(session))
+                throw new NotAutorizedException();
+
+            return new UserInfo(session.id, session.login);
+        }
     }
 }

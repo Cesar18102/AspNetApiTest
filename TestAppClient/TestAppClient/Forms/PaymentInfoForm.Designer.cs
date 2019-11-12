@@ -28,18 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentInfoForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentInfoForm));
             this.Menu = new System.Windows.Forms.ToolStrip();
             this.PaymentActions = new System.Windows.Forms.ToolStripDropDownButton();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportAction = new System.Windows.Forms.ToolStripDropDownButton();
+            this.ExcelExportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.PaymentsDataGridView = new System.Windows.Forms.DataGridView();
             this.PaymentFiltersPanel = new System.Windows.Forms.Panel();
+            this.PayerSearchInput = new System.Windows.Forms.TextBox();
+            this.PayerSearchLabel = new System.Windows.Forms.Label();
             this.PayedGroup = new System.Windows.Forms.GroupBox();
             this.PayedAndUnpayed = new System.Windows.Forms.RadioButton();
             this.Unpayed = new System.Windows.Forms.RadioButton();
             this.Payed = new System.Windows.Forms.RadioButton();
             this.MyPaymentsOnlyFilter = new System.Windows.Forms.CheckBox();
+            this.SessionActions = new System.Windows.Forms.ToolStripDropDownButton();
+            this.LogOutButton = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PaymentsDataGridView)).BeginInit();
             this.PaymentFiltersPanel.SuspendLayout();
@@ -50,10 +56,12 @@
             // 
             this.Menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PaymentActions});
+            this.SessionActions,
+            this.PaymentActions,
+            this.ExportAction});
             this.Menu.Location = new System.Drawing.Point(0, 0);
             this.Menu.Name = "Menu";
-            this.Menu.Size = new System.Drawing.Size(793, 31);
+            this.Menu.Size = new System.Drawing.Size(793, 27);
             this.Menu.TabIndex = 0;
             this.Menu.Text = "toolStrip1";
             // 
@@ -65,15 +73,33 @@
             this.PaymentActions.Image = ((System.Drawing.Image)(resources.GetObject("PaymentActions.Image")));
             this.PaymentActions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.PaymentActions.Name = "PaymentActions";
-            this.PaymentActions.Size = new System.Drawing.Size(79, 28);
+            this.PaymentActions.Size = new System.Drawing.Size(79, 24);
             this.PaymentActions.Text = "Payment";
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
+            // 
+            // ExportAction
+            // 
+            this.ExportAction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ExportAction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ExcelExportButton});
+            this.ExportAction.Image = ((System.Drawing.Image)(resources.GetObject("ExportAction.Image")));
+            this.ExportAction.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExportAction.Name = "ExportAction";
+            this.ExportAction.Size = new System.Drawing.Size(66, 24);
+            this.ExportAction.Text = "Export";
+            // 
+            // ExcelExportButton
+            // 
+            this.ExcelExportButton.Name = "ExcelExportButton";
+            this.ExcelExportButton.Size = new System.Drawing.Size(126, 26);
+            this.ExcelExportButton.Text = "Excel";
+            this.ExcelExportButton.Click += new System.EventHandler(this.ExcelExportButton_Click);
             // 
             // PaymentsDataGridView
             // 
@@ -102,6 +128,8 @@
             // 
             // PaymentFiltersPanel
             // 
+            this.PaymentFiltersPanel.Controls.Add(this.PayerSearchInput);
+            this.PaymentFiltersPanel.Controls.Add(this.PayerSearchLabel);
             this.PaymentFiltersPanel.Controls.Add(this.PayedGroup);
             this.PaymentFiltersPanel.Controls.Add(this.MyPaymentsOnlyFilter);
             this.PaymentFiltersPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -109,6 +137,23 @@
             this.PaymentFiltersPanel.Name = "PaymentFiltersPanel";
             this.PaymentFiltersPanel.Size = new System.Drawing.Size(793, 162);
             this.PaymentFiltersPanel.TabIndex = 2;
+            // 
+            // PayerSearchInput
+            // 
+            this.PayerSearchInput.Location = new System.Drawing.Point(180, 4);
+            this.PayerSearchInput.Name = "PayerSearchInput";
+            this.PayerSearchInput.Size = new System.Drawing.Size(366, 34);
+            this.PayerSearchInput.TabIndex = 3;
+            this.PayerSearchInput.TextChanged += new System.EventHandler(this.Filter_Changed);
+            // 
+            // PayerSearchLabel
+            // 
+            this.PayerSearchLabel.AutoSize = true;
+            this.PayerSearchLabel.Location = new System.Drawing.Point(3, 7);
+            this.PayerSearchLabel.Name = "PayerSearchLabel";
+            this.PayerSearchLabel.Size = new System.Drawing.Size(171, 29);
+            this.PayerSearchLabel.TabIndex = 2;
+            this.PayerSearchLabel.Text = "Плательщик: ";
             // 
             // PayedGroup
             // 
@@ -127,6 +172,7 @@
             // PayedAndUnpayed
             // 
             this.PayedAndUnpayed.AutoSize = true;
+            this.PayedAndUnpayed.Checked = true;
             this.PayedAndUnpayed.Location = new System.Drawing.Point(6, 108);
             this.PayedAndUnpayed.Name = "PayedAndUnpayed";
             this.PayedAndUnpayed.Size = new System.Drawing.Size(76, 33);
@@ -163,13 +209,33 @@
             // MyPaymentsOnlyFilter
             // 
             this.MyPaymentsOnlyFilter.AutoSize = true;
-            this.MyPaymentsOnlyFilter.Location = new System.Drawing.Point(12, 4);
+            this.MyPaymentsOnlyFilter.Checked = true;
+            this.MyPaymentsOnlyFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MyPaymentsOnlyFilter.Location = new System.Drawing.Point(12, 126);
             this.MyPaymentsOnlyFilter.Name = "MyPaymentsOnlyFilter";
             this.MyPaymentsOnlyFilter.Size = new System.Drawing.Size(264, 33);
             this.MyPaymentsOnlyFilter.TabIndex = 0;
             this.MyPaymentsOnlyFilter.Text = "Только мои оплаты";
             this.MyPaymentsOnlyFilter.UseVisualStyleBackColor = true;
             this.MyPaymentsOnlyFilter.CheckedChanged += new System.EventHandler(this.MyPaymentsOnlyFilter_CheckedChanged);
+            // 
+            // SessionActions
+            // 
+            this.SessionActions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SessionActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LogOutButton});
+            this.SessionActions.Image = ((System.Drawing.Image)(resources.GetObject("SessionActions.Image")));
+            this.SessionActions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SessionActions.Name = "SessionActions";
+            this.SessionActions.Size = new System.Drawing.Size(72, 24);
+            this.SessionActions.Text = "Session";
+            // 
+            // LogOutButton
+            // 
+            this.LogOutButton.Name = "LogOutButton";
+            this.LogOutButton.Size = new System.Drawing.Size(224, 26);
+            this.LogOutButton.Text = "Log Out";
+            this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
             // 
             // PaymentInfoForm
             // 
@@ -210,5 +276,11 @@
         private System.Windows.Forms.RadioButton PayedAndUnpayed;
         private System.Windows.Forms.RadioButton Unpayed;
         private System.Windows.Forms.RadioButton Payed;
+        private System.Windows.Forms.ToolStripDropDownButton ExportAction;
+        private System.Windows.Forms.ToolStripMenuItem ExcelExportButton;
+        private System.Windows.Forms.TextBox PayerSearchInput;
+        private System.Windows.Forms.Label PayerSearchLabel;
+        private System.Windows.Forms.ToolStripDropDownButton SessionActions;
+        private System.Windows.Forms.ToolStripMenuItem LogOutButton;
     }
 }

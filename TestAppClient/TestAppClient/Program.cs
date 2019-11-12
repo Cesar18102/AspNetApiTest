@@ -29,6 +29,7 @@ namespace TestAppClient
             builder.RegisterType<AuthController>().SingleInstance().AsSelf();
             builder.RegisterType<SignUpQueryFactory>().SingleInstance().AsSelf();
             builder.RegisterType<LogInQueryFactory>().SingleInstance().AsSelf();
+            builder.RegisterType<LogOutQueryFactory>().SingleInstance().AsSelf();
 
             builder.RegisterType<PaymentController>().SingleInstance().AsSelf();
             builder.RegisterType<GetAllPaymentsQueryFactory>().SingleInstance().AsSelf();

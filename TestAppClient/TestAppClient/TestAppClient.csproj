@@ -36,6 +36,10 @@
     <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -100,12 +104,22 @@
     <Compile Include="ServerInteraction\QueryFactories\GetUserByIdQueryFactory.cs" />
     <Compile Include="ServerInteraction\QueryFactories\GetUserByLoginQueryFactory.cs" />
     <Compile Include="ServerInteraction\QueryFactories\LogInQueryFactory.cs" />
+    <Compile Include="ServerInteraction\QueryFactories\LogOutQueryFactory.cs" />
     <Compile Include="ServerInteraction\QueryFactories\QueryFactory.cs" />
     <Compile Include="ServerInteraction\QueryFactories\SignUpQueryFactory.cs" />
     <Compile Include="ServerInteraction\ResponseParsers\IResponseParser.cs" />
     <Compile Include="ServerInteraction\ResponseParsers\JsonResponseParser.cs" />
     <Compile Include="ServerAccess\Impl\ResponseException.cs" />
     <Compile Include="Util\Encryption\Encryptor.cs" />
+    <Compile Include="Util\Export\ExcelExportContext.cs" />
+    <Compile Include="Util\Export\IExportContext.cs" />
+    <Compile Include="Util\Validation\FieldValidationHandler.cs" />
+    <Compile Include="Util\Validation\FormValidator.cs" />
+    <Compile Include="Util\Validation\Templates\AuthFormValidator.cs" />
+    <Compile Include="Util\Validation\Templates\FormValidatorTemplate.cs" />
+    <Compile Include="Util\Validation\Templates\Patterns\PaymentFormPatterns.cs" />
+    <Compile Include="Util\Validation\Templates\Patterns\AuthFormPatterns.cs" />
+    <Compile Include="Util\Validation\Templates\PaymentFormValidator.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -138,8 +152,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Util\Validation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using Autofac;
 
 using TestAppClient.Model;
 using TestAppClient.Controllers;
-using System.Linq;
+using TestAppClient.Util.Export;
 
 namespace TestAppClient.Forms
 {
@@ -54,8 +55,9 @@ namespace TestAppClient.Forms
             UseWaitCursor = false;
         }
 
-        private void FillTable() =>
-            PaymentsDataGridView.DataSource = Payments.Where(P => !Filters.Exists(F => !F(P))).ToList();
+        private List<Payment> GetFilteredPayments() => Payments.Where(P => !Filters.Exists(F => !F(P))).ToList();
+
+        private void FillTable() => PaymentsDataGridView.DataSource = GetFilteredPayments();
 
         private void UpdateFilters()
         {
@@ -63,6 +65,40 @@ namespace TestAppClient.Forms
 
             if (!PayedAndUnpayed.Checked)
                 Filters.Add(P => P.payed == Payed.Checked);
+
+            Filters.Add(P => $"{P.firstName} {P.lastName} {P.patronymic}".Contains(PayerSearchInput.Text) ||
+                             $"{P.firstName} {P.patronymic} {P.lastName}".Contains(PayerSearchInput.Text) ||
+                             $"{P.lastName} {P.firstName} {P.patronymic}".Contains(PayerSearchInput.Text) ||
+                             $"{P.lastName} {P.patronymic} {P.firstName}".Contains(PayerSearchInput.Text) ||
+                             $"{P.patronymic} {P.firstName} {P.lastName}".Contains(PayerSearchInput.Text) ||
+                             $"{P.patronymic} {P.lastName} {P.firstName}".Contains(PayerSearchInput.Text));
+
+        }
+
+        private async void ExcelExportButton_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+
+            FileDialog fileDialog = new SaveFileDialog() { InitialDirectory = Environment.CurrentDirectory, DefaultExt = ".xlsx" };
+
+            if (fileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            await Task.Run(() =>
+            {
+                List<Payment> payments = GetFilteredPayments();
+                new ExcelExportContext().Export<Payment>(fileDialog.FileName, payments, "payments");
+            });
+
+            UseWaitCursor = false;
+
+            MessageBox.Show("Данные успешно экспортированы!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async void LogOutButton_Click(object sender, EventArgs e)
+        {
+            await Program.DI.Resolve<AuthController>().LogOut(session);
+            this.Close();
         }
     }
 }
